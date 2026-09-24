@@ -1,0 +1,57 @@
+/*MAIN*/
+.logoHuerto{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 500px;
+    margin: 20px auto 20px;
+}
+
+.logoHuerto img {
+    margin-top: 50px;
+    width: 400px;
+    height: auto;
+}
+
+.historia{
+    max-width: 600px;
+    margin: 80px auto;
+    margin-bottom: 150px;
+    padding: 0 20px;
+    text-align: center;
+    line-height: 1.8;
+    font-size: 1rem;
+}
+
+#mapa {
+    height: 450px;
+    width: 100%;
+    border-radius: 12px;
+    z-index: 1;
+}
+
+.texto-huerto {
+    color: #2d5a27;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+/* Diseño de los botones */
+.btn-huerto {
+    background-color: transparent;
+    color: #2d5a27;
+    border: 2px solid #2d5a27;
+    border-radius: 8px;
+    padding: 8px 20px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+
+.btn-huerto:hover {
+    background-color: #2d5a27;
+    color: #ffffff;
+}
+/*MAIN*/

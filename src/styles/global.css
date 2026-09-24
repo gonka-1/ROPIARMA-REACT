@@ -1,0 +1,108 @@
+/* Reglas compartidas por todas las páginas de la tienda (header, tipografía base y footer).
+   Antes vivían duplicadas en cada style-*.css porque cada página HTML era un documento
+   aislado; en la SPA se cargan todas a la vez, así que se consolidan aquí una sola vez
+   para evitar que una se sobreescriba con otra al azar según el orden de import. */
+
+/* HEADER */
+.barraMenu {
+  background-color: #fef4e7;
+}
+
+.barraMenu .navbar-collapse {
+  display: flex;
+  justify-content: center;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-right: 20px;
+}
+
+.icono-inicio {
+  height: 10px;
+  margin-left: 25px;
+  color: #8b4513;
+}
+
+/* BASE */
+body {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  font-family: 'Raleway', sans-serif;
+  background-color: #fef4e7;
+}
+
+h1, h2, h3, h4, h5, h6, .card-title {
+  font-family: 'Playfair Display', serif;
+}
+
+/* FOOTER */
+footer {
+  background-color: #2e8b57;
+  color: rgb(218, 212, 208);
+  padding: 30px 0;
+  width: 100%;
+  margin-top: auto;
+}
+
+.footer-contendor {
+  width: 90%;
+  margin: auto;
+}
+
+.footer-contendor .row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.footer-contendor .col {
+  text-align: center;
+  flex: 1;
+}
+
+footer .btn.btn-success {
+  background-color: rgb(188, 198, 188);
+  color: rgb(12, 10, 10);
+  margin-top: 10px;
+}
+
+footer ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+footer ul li {
+  margin-bottom: 10px;
+}
+
+footer a {
+  text-decoration: none;
+  color: rgb(218, 212, 208);
+}
+
+.huerto {
+  font-size: 34px;
+  font-weight: bold;
+  letter-spacing: 4px;
+  margin: 0 0 15px 0;
+}
+
+.descripcion-huerto {
+  font-size: 17px;
+  line-height: 1.6;
+  max-width: 400px;
+  margin: auto;
+}
+
+.titulos {
+  font-weight: bold;
+  font-size: 25px;
+  margin-bottom: 5px;
+}

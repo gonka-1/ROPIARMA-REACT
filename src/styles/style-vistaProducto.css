@@ -1,0 +1,128 @@
+/* MAIN */
+.slices{
+    display: flex;
+    width: 100%;
+    justify-content: flex-start;
+    height: 80px;
+    object-fit: cover;
+}
+
+.carusel{
+    border: rgb(28, 180, 28) solid;
+    margin: 50px;
+    margin-top: 5px;
+    margin-left: 100px;
+    display: flex;
+    justify-content: center;
+    width: 85%;
+    height: 500px;
+}
+
+.img-carousel {
+    height: 500px;
+    object-fit: cover;
+    object-position: center;
+}
+
+.card-img-top {
+    height: 150px;
+    object-fit: cover;
+    object-position: center;
+}
+
+.texto{
+    display: flex;
+    margin-left: 100px;
+    margin-top: 50px;
+    width: 50%;
+    height: 40px;
+    letter-spacing: 2px;
+}
+
+.tituloProduto{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 100px;
+    padding: 10px;
+}
+
+.contendedor-producto{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    margin-top: 50px;
+    width: 80%;
+    margin-right: 100px;
+
+}
+
+.descripcion{
+    width: 80%;
+    height: 50px;
+    padding: 10px;
+    margin-right: 50px;
+    margin-top: 70px;
+}
+
+.Linea{
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+.DescripcionProducto{
+    color: black;
+    font-size: 19px;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+.contenedor-opciones {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    margin-top: 180px;
+    margin-right: 50px;
+    width: 600px;
+}
+
+.selector{
+    width: 200px;
+}
+
+.btn-guardar{
+    display: flex;
+    align-items: center;
+    width: 200px;
+}
+
+.Otros{
+    margin-left: 50px;
+}
+
+.cartasOtros{
+    display: flex;
+    padding: 20px;
+    margin-left: 40px;
+    width: 100%;
+}
+
+/* 1. Estado normal del botón */
+.btn-relieve {
+    background-color: #28a745 !important;
+    color: #ffffff !important;
+    display: inline-block;
+    border: none;
+    transition: all 0.1s ease;
+}
+
+.btn-relieve:active,
+.btn-relieve:focus:active {
+    background-color: #1b5233 !important;
+    color: #ffffff !important;
+    transform: translateY(2px) !important;
+    box-shadow: 0 2px 0 #1b5233 !important;
+}
+/*MAIN*/

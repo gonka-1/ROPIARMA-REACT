@@ -1,0 +1,51 @@
+export const tiendas = [
+  {
+    nombre: 'Tienda Santiago',
+    imagen: '/imagenesUbicacion/Ubicacion1.png',
+    direccion: 'Emco 4780, San Joaquín, Santiago',
+    horario: ['Lunes a Viernes: 9:00 AM - 6:00 PM', 'Sábado: 10:00 AM - 4:00 PM', 'Domingo: Cerrado'],
+    mapsQuery: 'Emco+4780',
+  },
+  {
+    nombre: 'Tienda Puerto Montt',
+    imagen: '/imagenesUbicacion/Ubicacion2.png',
+    direccion: 'Serrano 129, Puerto Montt, Los Lagos',
+    horario: ['Lunes a Viernes: 10:00 AM - 8:00 PM', 'Sábado: 10:00 AM - 4:00 PM', 'Domingo: Cerrado'],
+    mapsQuery: 'Serrano+129+Puerto+Montt+Los+Lagos',
+  },
+  {
+    nombre: 'Tienda Villarica',
+    imagen: '/imagenesUbicacion/Ubicacion3.png',
+    direccion: 'Av. Pedro de Valdivia 905, Villarrica, Araucanía',
+    horario: ['Lunes a Viernes: 8:00 AM - 6:00 PM', 'Sábado: 10:00 AM - 4:00 PM', 'Domingo: Cerrado'],
+    mapsQuery: 'Av.+Pedro+de+Valdivia+905+Villarrica+Araucanía',
+  },
+  {
+    nombre: 'Tienda Nacimiento',
+    imagen: '/imagenesUbicacion/Ubicacion4.png',
+    direccion: 'Baquedano 563, Nacimiento, Bío Bío',
+    horario: ['Lunes a Viernes: 10:00 AM - 8:00 PM', 'Sábado: 12:00 PM - 6:00 PM', 'Domingo: Cerrado'],
+    mapsQuery: 'Baquedano+563+Nacimiento+Bío+Bío',
+  },
+  {
+    nombre: 'Tienda Viña del Mar',
+    imagen: '/imagenesUbicacion/Ubicacion5.png',
+    direccion: '11 Nte. 851, Viña del Mar, Valparaíso',
+    horario: ['Lunes a Viernes: 8:00 AM - 6:00 PM', 'Sábado: 10:00 AM - 4:00 PM', 'Domingo: Cerrado'],
+    mapsQuery: '11+Nte.+851+Viña+del+Mar+Valparaíso',
+  },
+  {
+    nombre: 'Tienda Valparaíso',
+    imagen: '/imagenesUbicacion/Ubicacion6.png',
+    direccion: 'Necochea 159, Valparaíso',
+    horario: ['Lunes a Viernes: 10:00 AM - 8:00 PM', 'Sábado: 12:00 AM - 6:00 PM', 'Domingo: Cerrado'],
+    mapsQuery: 'Necochea+159+Valparaíso',
+  },
+  {
+    nombre: 'Tienda Concepción',
+    imagen: '/imagenesUbicacion/Ubicacion7.png',
+    direccion: 'Martín García Oñez de Loyola 18, Concepción, Bío Bío',
+    horario: ['Lunes a Viernes: 8:00 AM - 5:00 PM', 'Sábado: 10:00 AM - 5:00 PM', 'Domingo: Cerrado'],
+    mapsQuery: 'Martín+García+Oñez+de+Loyola+18+Concepción+Bío+Bío',
+  },
+]

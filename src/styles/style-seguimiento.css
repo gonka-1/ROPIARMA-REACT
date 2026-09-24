@@ -1,0 +1,51 @@
+/*MAIN*/
+.contenedor-principal-seguimiento {
+    max-width: 800px;
+  min-height: 55vh;
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+}
+.titulo-seguimiento {
+  font-family: 'Playfair Display', serif;
+  color: #2E8B57;
+}
+.tarjeta-buscador {
+  background-color: #FAFAFA;
+}
+
+.input-seguimiento {
+  border-color: #2E8B57;
+}
+
+.btn-seguimiento {
+  background-color: #2E8B57;
+  color: #FFFFFF;
+}
+
+.btn-seguimiento:hover {
+  background-color: #246B43;
+  color: #FFFFFF;
+}
+
+.id-pedido {
+  color: #2E8B57;
+}
+
+.badge-estado {
+  background-color: #2E8B57;
+}
+
+.contenedor-progreso {
+  height: 10px;
+  background-color: #E9ECEF;
+}
+
+.barra-progreso-fill {
+  background-color: #2E8B57;
+  width: 0%;
+}
+
+.subtitulo-seguimiento {
+  color: #2E8B57;
+}
+/*MAIN*/
