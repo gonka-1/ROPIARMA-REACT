@@ -1,7 +1,7 @@
 export const tiendas = [
   {
     nombre: 'Tienda Santiago',
-    imagen: '/imagenesUbicacion/Ubicacion1.png',
+    imagen: '/imagenesUbicacion/ubicacion1.png',
     direccion: 'Emco 4780, San Joaquín, Santiago',
     horario: ['Lunes a Viernes: 9:00 AM - 6:00 PM', 'Sábado: 10:00 AM - 4:00 PM', 'Domingo: Cerrado'],
     mapsQuery: 'Emco+4780',
