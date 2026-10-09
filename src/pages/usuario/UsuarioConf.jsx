@@ -1,7 +1,8 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Navigate, useNavigate } from 'react-router-dom'
 import { useSession } from '../../context/SessionContext'
 import '../../styles/style-usuario.css'
+import App_alert from '../../components/alerts/alert' 
 
 export default function UsuarioConf() {
   const navigate = useNavigate()
@@ -9,7 +10,15 @@ export default function UsuarioConf() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [mostrarPassword, setMostrarPassword] = useState(false)
-  const toastRef = useRef(null)
+  const [mostrarAlert, setMostrarAlert] = useState(false)
+  const [msgAlert, setMsgAlert] = useState('')
+  const [variantAlert, setVarianAlert] = useState('danger')
+
+  function mostrarMensaje(mensaje, variant = 'danger'){
+    setMsgAlert(mensaje)
+    setVarianAlert(variant)
+    setMostrarAlert(true)
+  }
 
   useEffect(() => {
     document.title = 'Ingresar'
@@ -27,12 +36,12 @@ export default function UsuarioConf() {
     const pass = password.trim()
 
     if (!correo || !pass) {
-      alert('Por favor, ingresa correo y contraseña')
+      mostrarMensaje('Por favor, ingresa correo y contraseña')
       return
     }
 
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(correo)) {
-      alert('Por favor, ingresa un correo electrónico válido (ejemplo: nombre@dominio.com)')
+      mostrarMensaje('Por favor, ingresa un correo electrónico válido (ejemplo: nombre@dominio.com)')
       return
     }
 
@@ -41,47 +50,46 @@ export default function UsuarioConf() {
     const tieneNumero = /[0-9]/.test(pass)
     const tieneEspacios = /\s/.test(pass)
 
-    if (pass.length < 8) return alert('La contraseña debe tener al menos 8 caracteres')
-    if (pass.length > 16) return alert('La contraseña no puede tener más de 16 caracteres')
-    if (tieneEspacios) return alert('La contraseña no puede contener espacios')
+    if (pass.length < 8) return mostrarMensaje('La contraseña debe tener al menos 8 caracteres')
+    if (pass.length > 16) return mostrarMensaje('La contraseña no puede tener más de 16 caracteres')
+    if (tieneEspacios) return mostrarMensaje('La contraseña no puede contener espacios')
     if (!tieneMinuscula || !tieneMayuscula || !tieneNumero) {
-      return alert('La contraseña debe incluir al menos una letra mayúscula, una letra minúscula y un número')
+      return mostrarMensaje('La contraseña debe incluir al menos una letra mayúscula, una letra minúscula y un número')
     }
 
     login({ ...registroTemp, email: correo })
-    clearTempRegistration()
 
-    if (toastRef.current && window.bootstrap) {
-      const toast = new window.bootstrap.Toast(toastRef.current)
-      toast.show()
-      setTimeout(() => navigate('/'), 2000)
-    } else {
-      alert('¡Usuario creado con éxito!')
+    mostrarMensaje('¡Usuario creado con éxito!', 'success')
+    setTimeout(() => {
       navigate('/')
-    }
+      clearTempRegistration()
+    }, 1500)
   }
+  
 
   return (
     <div className="container my-5 position-relative">
+      <App_alert
+        mostrarAlert={mostrarAlert}
+        cerrarAlert={() => setMostrarAlert(false)}
+        variant={variantAlert}
+        msgAlert={msgAlert}
+      />
       <div className="row justify-content-center">
         <div className="col-md-8 col-lg-6">
           <h2>Últimos pasos</h2>
 
-          <div className="toast-container position-fixed bottom-0 end-0 p-3" style={{ zIndex: 11 }}>
-            <div ref={toastRef} className="toast align-items-center text-bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
-              <div className="d-flex">
-                <div className="toast-body fs-6">
-                  <i className="bi bi-check-circle-fill me-2"></i> Usuario creado con éxito
-                </div>
-                <button type="button" className="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-              </div>
-            </div>
-          </div>
-
           <form onSubmit={handleSubmit} noValidate>
             <div className="mb-3">
               <label className="form-label">Correo electrónico</label>
-              <input type="email" className="form-control" placeholder="ejemplo@email.com" value={email} onChange={(e) => setEmail(e.target.value)} required />
+              <input
+                type="email"
+                className="form-control"
+                placeholder="ejemplo@email.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
             </div>
 
             <div className="mb-3">
@@ -96,7 +104,11 @@ export default function UsuarioConf() {
                   onChange={(e) => setPassword(e.target.value)}
                   required
                 />
-                <button className="btn btn-outline-secondary" type="button" onClick={() => setMostrarPassword((v) => !v)}>
+                <button
+                  className="btn btn-outline-secondary"
+                  type="button"
+                  onClick={() => setMostrarPassword((v) => !v)}
+                >
                   <i className={`bi ${mostrarPassword ? 'bi-eye' : 'bi-eye-slash'}`}></i>
                 </button>
               </div>
@@ -105,7 +117,9 @@ export default function UsuarioConf() {
               </div>
 
               <div className="contenedor-boton">
-                <button type="submit" className="btn btn-relieve">Crear usuario</button>
+                <button type="submit" className="btn btn-relieve">
+                  Crear usuario
+                </button>
               </div>
             </div>
           </form>

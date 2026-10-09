@@ -1,7 +1,10 @@
 import { useState } from 'react'
 import { useLocalStorageState } from '../../hooks/useLocalStorageState'
+import App_alert from '../alerts/alert'
+import Modal from 'react-bootstrap/Modal'
 
 const VACIO = ''
+
 
 function opcionValor(op) {
   return typeof op === 'string' ? op : op.value
@@ -30,6 +33,17 @@ export default function CrudPanel({
   const [editandoId, setEditandoId] = useState(null)
   const valoresIniciales = () => Object.fromEntries(fields.map((f) => [f.name, valorPorDefecto(f)]))
   const [valores, setValores] = useState(valoresIniciales)
+  const [itemAEliminar, setItemAEliminar] = useState(null)
+
+const [mostrarAlert, setMostrarAlert] = useState(false);
+const [msgAlert, setMsgAlert] = useState("");
+const [variantAlert, setVarianAlert] = useState("success");
+
+function mostrarMensaje(mensaje, variant = "success") {
+  setMsgAlert(mensaje);
+  setVarianAlert(variant);
+  setMostrarAlert(true);
+}
 
   function actualizarCampo(nombre, valor) {
     setValores((actual) => ({ ...actual, [nombre]: valor }))
@@ -51,6 +65,7 @@ export default function CrudPanel({
       return [...actual, registro]
     })
 
+    mostrarMensaje(editandoId ? 'Registro actualizado correctamente' : 'Registro agregado correctamente')
     resetearFormulario()
   }
 
@@ -59,43 +74,91 @@ export default function CrudPanel({
     setValores(Object.fromEntries(fields.map((f) => [f.name, item[f.name] ?? valorPorDefecto(f)])))
   }
 
-  function eliminar(item) {
-    if (!confirm(confirmarEliminar)) return
+  function pedirEliminar(item) {
+    setItemAEliminar(item)
+  }
+  
+  function confirmarEliminarItem() {
+    const item = itemAEliminar
     setItems((actual) => actual.filter((i) => i[idField] !== item[idField]))
     if (editandoId === item[idField]) resetearFormulario()
+    mostrarMensaje('Registro eliminado', 'warning')
+    setItemAEliminar(null)
   }
 
   return (
     <div className="row g-4">
+      <App_alert
+        mostrarAlert={mostrarAlert}
+        cerrarAlert={() => setMostrarAlert(false)}
+        variant={variantAlert}
+        msgAlert={msgAlert}
+      />
+      <Modal
+        show={itemAEliminar !== null}
+        onHide={() => setItemAEliminar(null)}
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Confirmar eliminación</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>{confirmarEliminar}</Modal.Body>
+        <Modal.Footer>
+          <button
+            className="btn btn-light"
+            onClick={() => setItemAEliminar(null)}
+          >
+            Cancelar
+          </button>
+          <button className="btn btn-danger" onClick={confirmarEliminarItem}>
+            Eliminar
+          </button>
+        </Modal.Footer>
+      </Modal>
       <div className="col-lg-4">
         <div className="card admin-card">
           <div className="card-header bg-white border-0 pt-3 pb-0">
-            <h6 className="card-title-custom">{editandoId ? tituloEditar : tituloAgregar}</h6>
+            <h6 className="card-title-custom">
+              {editandoId ? tituloEditar : tituloAgregar}
+            </h6>
           </div>
           <div className="card-body">
             <form onSubmit={handleSubmit}>
               {fields.map((f) => (
-                <div className={f.colClass || 'mb-3'} key={f.name}>
-                  <label className="form-label small fw-semibold">{f.label}</label>
-                  {f.type === 'select' ? (
+                <div className={f.colClass || "mb-3"} key={f.name}>
+                  <label className="form-label small fw-semibold">
+                    {f.label}
+                  </label>
+                  {f.type === "select" ? (
                     <select
                       className="form-select form-select-sm"
                       required={f.required}
                       value={valores[f.name]}
                       onChange={(e) => actualizarCampo(f.name, e.target.value)}
                     >
-                      {!f.noPlaceholder && <option value="" disabled>Seleccionar...</option>}
+                      {!f.noPlaceholder && (
+                        <option value="" disabled>
+                          Seleccionar...
+                        </option>
+                      )}
                       {f.options.map((op) => {
-                        const opcion = typeof op === 'string' ? { value: op, label: op } : op
-                        return <option key={opcion.value} value={opcion.value}>{opcion.label}</option>
+                        const opcion =
+                          typeof op === "string"
+                            ? { value: op, label: op }
+                            : op;
+                        return (
+                          <option key={opcion.value} value={opcion.value}>
+                            {opcion.label}
+                          </option>
+                        );
                       })}
                     </select>
                   ) : (
                     <input
-                      type={f.type || 'text'}
+                      type={f.type || "text"}
                       className="form-control form-control-sm"
                       placeholder={f.placeholder}
-                      min={f.type === 'number' ? 0 : undefined}
+                      min={f.type === "number" ? 0 : undefined}
                       required={f.required}
                       value={valores[f.name]}
                       onChange={(e) => actualizarCampo(f.name, e.target.value)}
@@ -105,11 +168,20 @@ export default function CrudPanel({
               ))}
 
               <div className="d-grid gap-2 pt-2">
-                <button type="submit" className={`btn btn-sm ${editandoId ? 'btn-warning' : 'btn-verde-admin'}`}>
+                <button
+                  type="submit"
+                  className={`btn btn-sm ${
+                    editandoId ? "btn-warning" : "btn-verde-admin"
+                  }`}
+                >
                   {editandoId ? botonEditar : botonAgregar}
                 </button>
                 {editandoId && (
-                  <button type="button" className="btn btn-light btn-sm text-muted" onClick={resetearFormulario}>
+                  <button
+                    type="button"
+                    className="btn btn-light btn-sm text-muted"
+                    onClick={resetearFormulario}
+                  >
                     Cancelar
                   </button>
                 )}
@@ -126,14 +198,21 @@ export default function CrudPanel({
               <table className="table table-hover align-middle mb-0">
                 <thead className="table-light small">
                   <tr>
-                    {columns.map((c) => <th key={c.key} className={c.thClass}>{c.label}</th>)}
+                    {columns.map((c) => (
+                      <th key={c.key} className={c.thClass}>
+                        {c.label}
+                      </th>
+                    ))}
                     <th className="text-end pe-3">Acciones</th>
                   </tr>
                 </thead>
                 <tbody className="small">
                   {items.length === 0 ? (
                     <tr>
-                      <td colSpan={columns.length + 1} className="text-center text-muted py-4">
+                      <td
+                        colSpan={columns.length + 1}
+                        className="text-center text-muted py-4"
+                      >
                         No hay registros todavía.
                       </td>
                     </tr>
@@ -146,8 +225,18 @@ export default function CrudPanel({
                           </td>
                         ))}
                         <td className="text-end pe-3">
-                          <button className="btn btn-outline-warning btn-sm me-1" onClick={() => cargarParaEditar(item)}>Editar</button>
-                          <button className="btn btn-outline-danger btn-sm" onClick={() => eliminar(item)}>Eliminar</button>
+                          <button
+                            className="btn btn-outline-warning btn-sm me-1"
+                            onClick={() => cargarParaEditar(item)}
+                          >
+                            Editar
+                          </button>
+                          <button
+                            className="btn btn-outline-danger btn-sm"
+                            onClick={() => pedirEliminar(item)}
+                          >
+                            Eliminar
+                          </button>
                         </td>
                       </tr>
                     ))
@@ -159,5 +248,5 @@ export default function CrudPanel({
         </div>
       </div>
     </div>
-  )
+  );
 }

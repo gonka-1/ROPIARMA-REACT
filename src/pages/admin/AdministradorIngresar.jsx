@@ -1,12 +1,22 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import '../../styles/style-usuario.css'
+import App_alert from '../../components/alerts/alert'
 
 export default function AdministradorIngresar() {
   const navigate = useNavigate()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [mostrarPassword, setMostrarPassword] = useState(false)
+  const [mostrarAlert, setMostrarAlert] = useState(false)
+  const [msgAlert, setMsgAlert] = useState('')
+  const [variantAlert, setVarianAlert] = useState('danger')
+
+  function mostrarMensaje(mensaje, variant = 'danger') {
+    setMsgAlert(mensaje)
+    setVarianAlert(variant)
+    setMostrarAlert(true)
+  }
 
   useEffect(() => {
     document.title = 'Ingresar'
@@ -19,20 +29,28 @@ export default function AdministradorIngresar() {
     const pass = password
 
     if (!correo.includes('@') || !correo.includes('.') || correo.length <= 8) {
-      alert('El correo no cumple con los requisitos.')
+      mostrarMensaje('El correo no cumple con los requisitos.')
       return
     }
 
     if (pass.length < 8 || !/[A-Z]/.test(pass) || !/[0-9]/.test(pass)) {
-      alert('La contraseña debe tener al menos 8 caracteres, una mayúscula y un número.')
+      mostrarMensaje('La contraseña debe tener al menos 8 caracteres, una mayúscula y un número.')
       return
     }
 
-    navigate('/admin')
+    mostrarMensaje('Bienvenido, administrador', 'success')
+    setTimeout(() => navigate('/admin'),1500)
+
   }
 
   return (
     <div className="container my-5 position-relative">
+      <App_alert
+      mostrarAlert={mostrarAlert}
+      cerrarAlert={() => setMostrarAlert(false)}
+      variant={variantAlert}
+      msgAlert={msgAlert}
+      />
       <div className="row justify-content-center">
         <div className="col-md-8 col-lg-6">
           <h2>Ingresar</h2>

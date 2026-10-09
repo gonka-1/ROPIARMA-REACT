@@ -38,8 +38,10 @@ export default function Carrito() {
   }
 
   function handleVaciar() {
+    if (items.length === 0) return
     clear()
     setCupon('')
+    mostrarMensaje('Carrito vaciado', 'warning')
   }
 
   function handleEliminar(indice, nombre) {
@@ -116,7 +118,7 @@ export default function Carrito() {
             {discountAmount > 0 && (
               <div className="d-flex justify-content-between mb-2 text-success">
                 <span>Descuento</span>
-                <span>{formatoPrecio(discountAmount)}</span>
+                <span>-{formatoPrecio(discountAmount)}</span>
               </div>
             )}
             <div className="d-flex justify-content-between mb-3 text-muted">

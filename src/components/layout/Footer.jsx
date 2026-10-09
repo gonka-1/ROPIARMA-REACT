@@ -1,31 +1,59 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import App_alert from '../alerts/alert'
 
 const CUPONES_SUSCRIPCION = ['HUERTITO10', 'FUJI123']
 
 export default function Footer() {
-  const [email, setEmail] = useState('')
+  const [email, setEmail] = useState("");
+  const [mostrarAlert, setMostrarAlert] = useState(false);
+  const [msgAlert, setMsgAlert] = useState("");
+  const [variantAlert, setVariantAlert] = useState("success");
+
+  function mostrarMensaje(mensaje, variant = "success") {
+    setMsgAlert(mensaje);
+    setVariantAlert(variant);
+    setMostrarAlert(true);
+  }
 
   function suscribirse() {
-    const correo = email.trim()
-    if (correo.includes('@') && correo.includes('.') && correo.length >= 8) {
-      const cupon = CUPONES_SUSCRIPCION[Math.floor(Math.random() * CUPONES_SUSCRIPCION.length)]
-      alert('Gracias por suscribirte. Te asignamos el cupón ' + cupon + ' para tu siguiente compra')
-      setEmail('')
+    const correo = email.trim();
+    if (correo.includes("@") && correo.includes(".") && correo.length >= 8) {
+      const cupon =
+        CUPONES_SUSCRIPCION[
+          Math.floor(Math.random() * CUPONES_SUSCRIPCION.length)
+        ];
+      mostrarMensaje(
+        "Gracias por suscribirte. Te asignamos el cupón " +
+          cupon +
+          " para tu siguiente compra"
+      );
+      setEmail("");
     } else {
-      alert('Correo no valido para la suscripción')
+      mostrarMensaje("Correo no valido para la suscripción", 'danger');
     }
   }
 
   return (
     <footer>
+      <App_alert
+        mostrarAlert={mostrarAlert}
+        cerrarAlert={() => setMostrarAlert(false)}
+        variant={variantAlert}
+        msgAlert={msgAlert}
+      />
+      ...
       <div className="footer-contendor">
         <div className="row">
           <div className="col">
             <div className="logoFooter">
-              <img src="/imagenes/LogoHuertoHogar.png" alt="Logo Huerto Hogar" style={{ width: '200px', height: 'auto' }} />
+              <img
+                src="/imagenes/LogoHuertoHogar.png"
+                alt="Logo Huerto Hogar"
+                style={{ width: "200px", height: "auto" }}
+              />
             </div>
-            <p className="descripcion-huerto" style={{ fontSize: '15px' }}>
+            <p className="descripcion-huerto" style={{ fontSize: "15px" }}>
               Productos agrícolas de calidad, directamente para tu hogar.
             </p>
           </div>
@@ -33,10 +61,18 @@ export default function Footer() {
           <div className="col">
             <h4 className="titulos">Categorías</h4>
             <ul>
-              <li><Link to="/productos/frutas">Frutas Frescas</Link></li>
-              <li><Link to="/productos/verduras">Verduras Orgánicas</Link></li>
-              <li><Link to="/productos/organicos">Frutas Secas</Link></li>
-              <li><Link to="/productos/lacteos">Productos Lácteos</Link></li>
+              <li>
+                <Link to="/productos/frutas">Frutas Frescas</Link>
+              </li>
+              <li>
+                <Link to="/productos/verduras">Verduras Orgánicas</Link>
+              </li>
+              <li>
+                <Link to="/productos/organicos">Frutas Secas</Link>
+              </li>
+              <li>
+                <Link to="/productos/lacteos">Productos Lácteos</Link>
+              </li>
             </ul>
           </div>
 
@@ -59,10 +95,16 @@ export default function Footer() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
-            <button onClick={suscribirse} type="button" className="btn btn-success">Suscribirse</button>
+            <button
+              onClick={suscribirse}
+              type="button"
+              className="btn btn-success"
+            >
+              Suscribirse
+            </button>
           </div>
         </div>
       </div>
     </footer>
-  )
+  );
 }
