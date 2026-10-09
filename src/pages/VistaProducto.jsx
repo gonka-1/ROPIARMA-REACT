@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import App_alert from '../components/alerts/alert'
 import { Link, useParams, Navigate } from 'react-router-dom'
 import { getProductoBySlug, getOtrosProductos } from '../data/productos'
 import { useCart } from '../context/CartContext'
@@ -10,6 +11,9 @@ export default function VistaProducto() {
   const producto = getProductoBySlug(slug)
   const { addToCart, cantidadEnCarrito } = useCart()
   const [cantidad, setCantidad] = useState(1)
+  const [mostrarAlert, setMostrarAlert] = useState(false)
+  const [msgAlert, setMsgAlert] = useState('')
+  const [variantAlert, setVariantAlert] = useState('success')
 
   useEffect(() => {
     if (producto) document.title = producto.nombre
@@ -28,16 +32,27 @@ export default function VistaProducto() {
 
   function handleAgregar() {
     if (stockDisponible <= 0 || cantidad <= 0 || cantidad > stockDisponible) {
-      alert('SIN STOCK DISPONIBLE!!\n\nNo hay suficiente stock disponible')
+      setMsgAlert('Sin stock disponible. No hay suficiente stock para esa cantidad.')
+      setVariantAlert('danger')
+      setMostrarAlert(true)
       return
     }
     addToCart(producto, cantidad)
-    alert(`Agregaste ${cantidad} ${producto.unidad} al carrito. Quedan ${stockDisponible - cantidad} ${producto.unidad} en stock`)
+    setMsgAlert(`Agregaste ${cantidad} ${producto.unidad} al carrito. Quedan ${stockDisponible - cantidad} ${producto.unidad} en stock`)
+    setVariantAlert('success')
+    setMostrarAlert(true)
     setCantidad(1)
   }
 
   return (
     <>
+    <App_alert
+      mostrarAlert={mostrarAlert}
+      cerrarAlert={() => setMostrarAlert(false)}
+      variant={variantAlert}
+      msgAlert={msgAlert}
+      />
+
       <div className="row">
         <div className="col-6">
           <div className="texto">

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { useSession } from '../../context/SessionContext'
 import { UBICACIONES } from '../../data/ubicaciones'
 import '../../styles/style-usuario.css'
+import App_alert from '../../components/alerts/alert'
 
 const MESES = [
   'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
@@ -12,6 +13,15 @@ const MESES = [
 export default function Usuario() {
   const navigate = useNavigate()
   const { saveTempRegistration } = useSession()
+  const [mostrarAlert, setMostrarAlert] = useState(false)
+  const [msgAlert, setMsgAlert] = useState('')
+  const [variantAlert, setVariantAlert] = useState('success')
+
+  function mostrarMensaje(mensaje, variant = 'success') {
+    setMsgAlert(mensaje)
+    setVariantAlert(variant)
+    setMostrarAlert(true)
+  }
 
   const [form, setForm] = useState({
     nombre: '', apellido: '', dia: '', mes: '', anio: '',
@@ -54,7 +64,7 @@ export default function Usuario() {
     setErrores(nuevosErrores)
 
     if (Object.keys(nuevosErrores).length > 0) {
-      alert('Por favor, completa todos los campos obligatorios')
+      mostrarMensaje('Por favor, completa todos los campos obligatorios', 'danger')
       return
     }
 
@@ -65,7 +75,7 @@ export default function Usuario() {
     if (difMeses < 0 || (difMeses === 0 && hoy.getDate() < fechaNac.getDate())) edad--
 
     if (edad < 18) {
-      alert('Debes ser mayor de 18 años para registrarte')
+      mostrarMensaje('Debes ser mayor de 18 años para registrarte', 'danger')
       return
     }
 
@@ -80,11 +90,20 @@ export default function Usuario() {
       region: form.region,
     })
 
-    navigate('/usuario/confirmar')
+    mostrarMensaje('¡Datos guardados! Ahora completa los últimos pasos para crear tu cuenta.', 'success')
+    setTimeout(() => navigate('/usuario/confirmar'), 1500)
+
+
   }
 
   return (
     <div className="container my-5">
+      <App_alert
+      mostrarAlert={mostrarAlert}
+      cerrarAlert={() => setMostrarAlert(false)}
+      variant={variantAlert}
+      msgAlert={msgAlert}
+      />
       <div className="row justify-content-center">
         <div className="col-md-8 col-lg-6">
           <h1>Crea tu usuario</h1>
