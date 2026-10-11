@@ -1,47 +1,51 @@
 
 body {
     font-family: 'Raleway', sans-serif;
+    background-color: #f8f9fa;
 }
 
-
+/* Tipografía Corporativa */
 .fuente-titulos {
     font-family: 'Playfair Display', serif;
-    color: #2d5a27;
+    color: #2D5A27;
 }
 
+/* Layout Principal */
+.admin-layout {
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+}
 
+.admin-main-content {
+    flex-grow: 1;
+    padding: 2rem;
+    background-color: #f8f9fa;
+    overflow-y: auto;
+}
+
+/* Títulos y colores corporativos */
+.admin-title,
+.card-title-custom {
+    color: #2D5A27;
+    font-weight: 700;
+}
+
+/* Sidebar / Navegación */
 .nav-pills .nav-link {
     color: #555;
     font-weight: 500;
     transition: all 0.2s ease;
 }
 
-
 .nav-pills .nav-link:hover {
     background-color: #eaf1ea;
-    color: #2d5a27;
+    color: #2D5A27;
 }
-
 
 .nav-pills .nav-link.active {
-    background-color: #2d5a27 !important;
+    background-color: #2D5A27 !important;
     color: #ffffff !important;
-}
-
-
-.campana-container {
-    cursor: pointer;
-}
-
-.campana-notificacion {
-    font-size: 1.5rem;
-    color: #2d5a27;
-    transition: transform 0.2s;
-    display: inline-block;
-}
-
-.campana-container:hover .campana-notificacion {
-    transform: scale(1.1);
 }
 
 aside .nav-link {
@@ -55,31 +59,61 @@ aside .nav-link:hover {
     transform: translateY(-2px); 
 }
 
-/*INVENTARIO*/
-
-/* Layout del contenedor principal */
-.admin-main-content {
-    flex-grow: 1;
-    padding: 1.5rem;
-    background-color: #f8f9fa;
-    overflow-y: auto;
+/* Notificación Campana */
+.campana-container {
+    cursor: pointer;
 }
 
-/* Títulos y colores corporativos */
-.admin-title,
-.card-title-custom {
+.campana-notificacion {
+    font-size: 1.5rem;
     color: #2D5A27;
-    font-weight: 700;
+    transition: transform 0.2s;
+    display: inline-block;
 }
 
-/* Tarjetas */
+.campana-container:hover .campana-notificacion {
+    transform: scale(1.1);
+}
+
+
+/* Tarjetas KPI compactas (Resumen de hoy) */
+.admin-kpi-card {
+    background-color: #FEF4E7;
+    border: none;
+    border-radius: 1rem;
+    padding: 1.25rem;
+    height: auto !important; /* Fuerza a tomar solo la altura del texto */
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.05);
+}
+
+.kpi-border-verde {
+    border-top: 4px solid #2D5A27 !important;
+}
+
+.kpi-border-azul {
+    border-top: 4px solid #0d6efd !important;
+}
+
+.kpi-border-amarillo {
+    border-top: 4px solid #ffc107 !important;
+}
+
+/* Contenedor de Detalles Recientes */
+.admin-card-detalles {
+    background-color: #FEF4E7;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    border: none;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.05);
+}
+
+
 .admin-card {
     border: none;
     box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
     border-radius: 0.5rem;
 }
 
-/* Botón principal (Guardar) */
 .btn-verde-admin {
     background-color: #2D5A27;
     color: #ffffff;
@@ -93,7 +127,6 @@ aside .nav-link:hover {
     color: #ffffff;
 }
 
-/* Tabla */
 .tabla-inventario-img {
     width: 45px;
     height: 45px;
@@ -106,5 +139,3 @@ aside .nav-link:hover {
     color: #2D5A27;
     font-weight: 600;
 }
-
-/*INVENTARIO*/

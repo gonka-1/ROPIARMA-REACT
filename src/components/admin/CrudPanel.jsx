@@ -5,7 +5,6 @@ import Modal from 'react-bootstrap/Modal'
 
 const VACIO = ''
 
-
 function opcionValor(op) {
   return typeof op === 'string' ? op : op.value
 }
@@ -35,15 +34,15 @@ export default function CrudPanel({
   const [valores, setValores] = useState(valoresIniciales)
   const [itemAEliminar, setItemAEliminar] = useState(null)
 
-const [mostrarAlert, setMostrarAlert] = useState(false);
-const [msgAlert, setMsgAlert] = useState("");
-const [variantAlert, setVarianAlert] = useState("success");
+  const [mostrarAlert, setMostrarAlert] = useState(false)
+  const [msgAlert, setMsgAlert] = useState("")
+  const [variantAlert, setVarianAlert] = useState("success")
 
-function mostrarMensaje(mensaje, variant = "success") {
-  setMsgAlert(mensaje);
-  setVarianAlert(variant);
-  setMostrarAlert(true);
-}
+  function mostrarMensaje(mensaje, variant = "success") {
+    setMsgAlert(mensaje)
+    setVarianAlert(variant)
+    setMostrarAlert(true)
+  }
 
   function actualizarCampo(nombre, valor) {
     setValores((actual) => ({ ...actual, [nombre]: valor }))
@@ -87,7 +86,8 @@ function mostrarMensaje(mensaje, variant = "success") {
   }
 
   return (
-    <div className="row g-4">
+    /* align-items-start evita que las tarjetas se estiren artificialmente hacia abajo */
+    <div className="row g-4 align-items-start">
       <App_alert
         mostrarAlert={mostrarAlert}
         cerrarAlert={() => setMostrarAlert(false)}
@@ -115,64 +115,68 @@ function mostrarMensaje(mensaje, variant = "success") {
           </button>
         </Modal.Footer>
       </Modal>
+
+      {/* Columna Izquierda: Formulario */}
       <div className="col-lg-4">
-        <div className="card admin-card">
-          <div className="card-header bg-white border-0 pt-3 pb-0">
-            <h6 className="card-title-custom">
+        <div className="card admin-card border-0 shadow-sm" style={{ backgroundColor: '#FEF4E7', height: 'auto' }}>
+          <div className="card-header bg-transparent border-0 pt-3 pb-0 text-center">
+            <h6 className="card-title-custom fw-bold fs-5">
               {editandoId ? tituloEditar : tituloAgregar}
             </h6>
           </div>
           <div className="card-body">
             <form onSubmit={handleSubmit}>
-              {fields.map((f) => (
-                <div className={f.colClass || "mb-3"} key={f.name}>
-                  <label className="form-label small fw-semibold">
-                    {f.label}
-                  </label>
-                  {f.type === "select" ? (
-                    <select
-                      className="form-select form-select-sm"
-                      required={f.required}
-                      value={valores[f.name]}
-                      onChange={(e) => actualizarCampo(f.name, e.target.value)}
-                    >
-                      {!f.noPlaceholder && (
-                        <option value="" disabled>
-                          Seleccionar...
-                        </option>
-                      )}
-                      {f.options.map((op) => {
-                        const opcion =
-                          typeof op === "string"
-                            ? { value: op, label: op }
-                            : op;
-                        return (
-                          <option key={opcion.value} value={opcion.value}>
-                            {opcion.label}
+              <div className="row g-2">
+                {fields.map((f) => (
+                  <div className={f.colClass || "col-12 mb-3"} key={f.name}>
+                    <label className="form-label small fw-semibold text-dark">
+                      {f.label}
+                    </label>
+                    {f.type === "select" ? (
+                      <select
+                        className="form-select"
+                        required={f.required}
+                        value={valores[f.name]}
+                        onChange={(e) => actualizarCampo(f.name, e.target.value)}
+                      >
+                        {!f.noPlaceholder && (
+                          <option value="" disabled>
+                            Seleccionar...
                           </option>
-                        );
-                      })}
-                    </select>
-                  ) : (
-                    <input
-                      type={f.type || "text"}
-                      className="form-control form-control-sm"
-                      placeholder={f.placeholder}
-                      min={f.type === "number" ? 0 : undefined}
-                      required={f.required}
-                      value={valores[f.name]}
-                      onChange={(e) => actualizarCampo(f.name, e.target.value)}
-                    />
-                  )}
-                </div>
-              ))}
+                        )}
+                        {f.options.map((op) => {
+                          const opcion =
+                            typeof op === "string"
+                              ? { value: op, label: op }
+                              : op;
+                          return (
+                            <option key={opcion.value} value={opcion.value}>
+                              {opcion.label}
+                            </option>
+                          );
+                        })}
+                      </select>
+                    ) : (
+                      <input
+                        type={f.type || "text"}
+                        className="form-control"
+                        placeholder={f.placeholder}
+                        min={f.type === "number" ? 0 : undefined}
+                        required={f.required}
+                        value={valores[f.name]}
+                        onChange={(e) => actualizarCampo(f.name, e.target.value)}
+                      />
+                    )}
+                  </div>
+                ))}
+              </div>
 
               <div className="d-grid gap-2 pt-2">
                 <button
                   type="submit"
-                  className={`btn btn-sm ${
+                  className={`btn ${
                     editandoId ? "btn-warning" : "btn-verde-admin"
-                  }`}
+                  } w-100 py-2 fw-semibold`}
                 >
                   {editandoId ? botonEditar : botonAgregar}
                 </button>
@@ -191,12 +195,13 @@ function mostrarMensaje(mensaje, variant = "success") {
         </div>
       </div>
 
+      {/* Columna Derecha: Tabla Extendida */}
       <div className="col-lg-8">
-        <div className="card admin-card">
+        <div className="card admin-card border-0 shadow-sm p-3" style={{ backgroundColor: '#FEF4E7', height: 'auto' }}>
           <div className="card-body p-0">
-            <div className="table-responsive">
-              <table className="table table-hover align-middle mb-0">
-                <thead className="table-light small">
+            <div className="table-responsive bg-white rounded-3 shadow-sm w-100">
+              <table className="table table-hover align-middle mb-0 w-100">
+                <thead className="table-light">
                   <tr>
                     {columns.map((c) => (
                       <th key={c.key} className={c.thClass}>
@@ -206,7 +211,7 @@ function mostrarMensaje(mensaje, variant = "success") {
                     <th className="text-end pe-3">Acciones</th>
                   </tr>
                 </thead>
-                <tbody className="small">
+                <tbody>
                   {items.length === 0 ? (
                     <tr>
                       <td

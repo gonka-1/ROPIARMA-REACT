@@ -15,10 +15,10 @@ export default function UsuarioIngresar() {
   const [variantAlert, setVariantAlert] = useState('danger')
 
   useEffect(() => {
-    document.title = 'Ingresar'
+    document.title = 'Ingresar - Huerto Hogar'
   }, [])
 
-  function mostrarMensaje(mensaje, variant = 'danger'){
+  function mostrarMensaje(mensaje, variant = 'danger') {
     setMsgAlert(mensaje)
     setVariantAlert(variant)
     setMostrarAlert(true)
@@ -53,14 +53,26 @@ export default function UsuarioIngresar() {
     }
 
     const registroTemp = getTempRegistration()
+    const esAdmin = correo === 'admin@huertohogar.cl'
+
     const datosBase = user && user.email === correo
       ? user
-      : { nombre: obtenerNombreUsuario(correo, registroTemp && registroTemp.nombre) }
+      : { 
+          nombre: esAdmin ? 'Administrador' : obtenerNombreUsuario(correo, registroTemp && registroTemp.nombre),
+          role: esAdmin ? 'admin' : 'user'
+        }
 
     login({ ...datosBase, email: correo })
 
-    mostrarMensaje('¡Bienvenido de nuevo!', 'success')
-    setTimeout(() =>navigate('/'), 1500)
+    mostrarMensaje(esAdmin ? '¡Bienvenido Administrador!' : '¡Bienvenido de nuevo!', 'success')
+    
+    setTimeout(() => {
+      if (esAdmin) {
+        navigate('/admin/inventario')
+      } else {
+        navigate('/')
+      }
+    }, 1500)
   }
 
   return (
@@ -71,29 +83,36 @@ export default function UsuarioIngresar() {
         variant={variantAlert}
         msgAlert={msgAlert}
       />
-      <div className="container my-5 position-relative">
-        <div className="row justify-content-center">
-          <div className="col-md-8 col-lg-6">
-            <h2>Ingresar</h2>
+      <div className="container my-5 d-flex justify-content-center align-items-center" style={{ minHeight: '65vh' }}>
+        <div className="w-100" style={{ maxWidth: '450px' }}>
+          
+          {/* Contenedor tipo Tarjeta */}
+          <div className="card border-0 shadow-sm p-4 p-md-5 rounded-4 bg-white">
+            <div className="text-center mb-4">
+              <h2 className="fw-bold text-dark m-0">Ingresar</h2>
+              <p className="text-muted small mt-1">Inicia sesión en tu cuenta de Huerto Hogar</p>
+            </div>
 
             <form onSubmit={handleSubmit} noValidate>
               <div className="mb-3">
-                <label className="form-label">Correo electrónico</label>
+                <label className="form-label fw-semibold text-dark small">Correo electrónico</label>
                 <input
                   type="email"
                   className="form-control"
+                  placeholder="ejemplo@correo.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
                 />
               </div>
 
-              <div className="mb-3">
-                <label>Contraseña</label>
+              <div className="mb-4">
+                <label className="form-label fw-semibold text-dark small">Contraseña</label>
                 <div className="input-group">
                   <input
                     type={mostrarPassword ? "text" : "password"}
                     className="form-control"
+                    placeholder="••••••••"
                     minLength={8}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
@@ -112,15 +131,31 @@ export default function UsuarioIngresar() {
                   </button>
                 </div>
               </div>
-              <div className="contenedor-boton">
-                <button type="submit" className="btn btn-relieve">
+
+              <div className="contenedor-boton mb-3">
+                <button type="submit" className="btn btn-relieve w-100 py-2 fs-6 fw-bold">
                   Ingresar
                 </button>
               </div>
             </form>
+
+            {/* Recuadro informativo de credenciales de prueba */}
+            <div className="alert alert-info border-0 rounded-3 p-3 mt-3 mb-0 small">
+              <p className="fw-bold mb-1 text-dark">🔑 Accesos de prueba:</p>
+              <ul className="mb-0 ps-3 text-muted">
+                <li>
+                  <b>Admin:</b> <code>admin@huertohogar.cl</code> / <code>Admin123</code>
+                </li>
+                <li>
+                  <b>Cliente:</b> <code>cliente@huertohogar.cl</code> / <code>Cliente123</code>
+                </li>
+              </ul>
+            </div>
+
           </div>
+
         </div>
       </div>
     </>
-  );
+  )
 }

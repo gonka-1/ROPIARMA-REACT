@@ -1,12 +1,13 @@
 import { useEffect } from 'react'
 import CrudPanel from '../../components/admin/CrudPanel'
+import { Placeholder } from 'react-bootstrap'
 
 const ESTADOS = ['Pendiente', 'En Preparación', 'Enviado', 'Entregado']
 
 const CAMPOS = [
-  { name: 'cliente', label: 'Cliente', type: 'text', required: true },
-  { name: 'correo', label: 'Correo', type: 'email', required: true },
-  { name: 'total', label: 'Total ($)', type: 'number', required: true },
+  { name: 'cliente', label: 'Cliente', type: 'text',placeholder: 'Ej. Jose', required: true },
+  { name: 'correo', label: 'Correo', type: 'email',placeholder: 'jos@gmail.com', required: true },
+  { name: 'total', label: 'Total ($)', type: 'number',placeholder: '0', required: true },
   { name: 'estado', label: 'Estado', type: 'select', required: true, options: ESTADOS },
 ]
 

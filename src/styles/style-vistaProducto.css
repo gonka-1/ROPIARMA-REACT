@@ -1,128 +1,135 @@
-/* MAIN */
-.slices{
-    display: flex;
-    width: 100%;
-    justify-content: flex-start;
-    height: 80px;
-    object-fit: cover;
+/* ===================================================
+   VISTA PRODUCTO - HUERTO HOGAR
+   =================================================== */
+
+/* Estructura y Contenedores */
+.slices {
+  display: flex;
+  width: 100%;
+  justify-content: flex-start;
+  height: 80px;
 }
 
-.carusel{
-    border: rgb(28, 180, 28) solid;
-    margin: 50px;
-    margin-top: 5px;
-    margin-left: 100px;
-    display: flex;
-    justify-content: center;
-    width: 85%;
-    height: 500px;
+.carusel {
+  border: 3px solid #1cb41c;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  max-height: 500px;
+  border-radius: 12px;
+  overflow: hidden;
 }
 
 .img-carousel {
-    height: 500px;
-    object-fit: cover;
-    object-position: center;
+  width: 100%;
+  height: 100%;
+  max-height: 500px;
+  object-fit: cover;
+  object-position: center;
 }
 
 .card-img-top {
-    height: 150px;
-    object-fit: cover;
-    object-position: center;
+  height: 140px;
+  object-fit: cover;
+  object-position: center;
 }
 
-.texto{
-    display: flex;
-    margin-left: 100px;
-    margin-top: 50px;
-    width: 50%;
-    height: 40px;
-    letter-spacing: 2px;
+/* Breadcrumbs y Título */
+.texto {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  letter-spacing: 1px;
 }
 
-.tituloProduto{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 100px;
-    padding: 10px;
+.tituloProduto {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
 }
 
-.contendedor-producto{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 50px;
-    margin-top: 50px;
-    width: 80%;
-    margin-right: 100px;
-
+.contendedor-producto {
+  display: flex;
+  align-items: center;
+  width: 100%;
 }
 
-.descripcion{
-    width: 80%;
-    height: 50px;
-    padding: 10px;
-    margin-right: 50px;
-    margin-top: 70px;
+/* Sección de Descripción (Sin height fijo para evitar superposiciones) */
+.descripcion {
+  width: 100%;
+  height: auto;
+  margin-top: 1rem;
+  padding: 0;
 }
 
-.Linea{
-    margin-left: 50px;
-    margin-right: 50px;
+.Linea {
+  margin: 1.2rem 0 !important;
+  opacity: 0.6;
 }
 
-.DescripcionProducto{
-    color: black;
-    font-size: 19px;
-    margin-left: 50px;
-    margin-right: 50px;
+.DescripcionProducto {
+  color: #2b2b2b;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  margin: 0;
 }
 
+/* Opciones de Compra y Stock (Márgenes normales) */
 .contenedor-opciones {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
-    margin-top: 180px;
-    margin-right: 50px;
-    width: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 15px;
+  margin-top: 1.5rem !important;
+  width: 100%;
 }
 
-.selector{
-    width: 200px;
+.selector {
+  width: auto;
+  min-width: 120px;
 }
 
-.btn-guardar{
-    display: flex;
-    align-items: center;
-    width: 200px;
+.btn-guardar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 220px;
 }
 
-.Otros{
-    margin-left: 50px;
+/* Sección Otros Productos */
+.Otros {
+  margin-top: 2rem;
 }
 
-.cartasOtros{
-    display: flex;
-    padding: 20px;
-    margin-left: 40px;
-    width: 100%;
+.cartasOtros {
+  display: flex;
+  width: 100%;
 }
 
-/* 1. Estado normal del botón */
+/* Botón con Relieve */
 .btn-relieve {
-    background-color: #28a745 !important;
-    color: #ffffff !important;
-    display: inline-block;
-    border: none;
-    transition: all 0.1s ease;
+  background-color: #2E8B57 !important;
+  color: #ffffff !important;
+  display: inline-block;
+  border: none;
+  box-shadow: 0 4px 0 #1b5233;
+  transition: all 0.1s ease;
+  border-radius: 8px;
+}
+
+.btn-relieve:hover {
+  background-color: #236b43 !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 0 #1b5233;
 }
 
 .btn-relieve:active,
 .btn-relieve:focus:active {
-    background-color: #1b5233 !important;
-    color: #ffffff !important;
-    transform: translateY(2px) !important;
-    box-shadow: 0 2px 0 #1b5233 !important;
+  background-color: #1b5233 !important;
+  color: #ffffff !important;
+  transform: translateY(2px) !important;
+  box-shadow: 0 2px 0 #1b5233 !important;
 }
-/*MAIN*/
