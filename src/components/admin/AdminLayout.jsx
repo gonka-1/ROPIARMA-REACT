@@ -1,7 +1,23 @@
-import { NavLink, Outlet } from 'react-router-dom'
+import { NavLink, Outlet, useNavigate } from 'react-router-dom'
+import { useSession } from '../../context/SessionContext' // Ajusta esta ruta si tu SessionContext está en otra carpeta
 import '../../styles/style-administrador.css'
 
 export default function AdminLayout() {
+  const navigate = useNavigate()
+  const { logout } = useSession() || {} // Extrae el método logout del contexto si existe
+
+  function handleCerrarSesion(e) {
+    e.preventDefault()
+
+    // 1. Limpia la sesión del usuario si existe la función logout
+    if (logout) {
+      logout()
+    }
+
+    // 2. Redirige a la ruta principal (Principal.jsx en '/')
+    navigate('/')
+  }
+
   return (
     <div className="d-flex vh-100 overflow-hidden bg-light">
       <aside className="d-flex flex-column p-3 bg-white border-end shadow-sm" style={{ width: '260px' }}>
@@ -47,6 +63,14 @@ export default function AdminLayout() {
           <li className="nav-item"><a href="#" className="nav-link"><i className="bi bi-person-plus me-2"></i> Perfil +</a></li>
           <li className="nav-item"><a href="#" className="nav-link"><i className="bi bi-search me-2"></i> Búsqueda</a></li>
           <li className="nav-item"><a href="#" className="nav-link"><i className="bi bi-question-circle me-2"></i> Ayuda</a></li>
+          <li className="nav-item">
+            <button 
+              onClick={handleCerrarSesion} 
+              className="nav-link btn btn-link text-start w-100 text-decoration-none border-0"
+            >
+              <i className="bi bi-box-arrow-right me-2"></i> Cerrar sesión
+            </button>
+          </li>
         </ul>
 
         <div className="d-flex align-items-center p-2 bg-light border rounded">

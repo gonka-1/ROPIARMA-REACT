@@ -27,6 +27,7 @@ export default function VistaProducto() {
     return <Navigate to="/categorias" replace />
   }
 
+  // Corrección de la variable stockDisponible
   const stockDisponible = producto.stock - cantidadEnCarrito(producto.id)
   const otros = getOtrosProductos(producto.slug)
 
@@ -38,6 +39,7 @@ export default function VistaProducto() {
       return
     }
     addToCart(producto, cantidad)
+    // Corrección de la plantilla del mensaje de alerta
     setMsgAlert(`Agregaste ${cantidad} ${producto.unidad} al carrito. Quedan ${stockDisponible - cantidad} ${producto.unidad} en stock`)
     setVariantAlert('success')
     setMostrarAlert(true)
@@ -45,12 +47,12 @@ export default function VistaProducto() {
   }
 
   return (
-    <>
-    <App_alert
-      mostrarAlert={mostrarAlert}
-      cerrarAlert={() => setMostrarAlert(false)}
-      variant={variantAlert}
-      msgAlert={msgAlert}
+    <div className="container my-4">
+      <App_alert
+        mostrarAlert={mostrarAlert}
+        cerrarAlert={() => setMostrarAlert(false)}
+        variant={variantAlert}
+        msgAlert={msgAlert}
       />
 
       <div className="row">
@@ -73,18 +75,18 @@ export default function VistaProducto() {
       </div>
 
       <div className="row">
-        <div className="col">
+        <div className="col-md-6">
           <div id="carouselExampleSlidesOnly" className="carousel slide carusel" data-bs-ride="carousel">
             <div className="carousel-inner">
               {producto.imagenes.map((img, i) => (
                 <div className={`carousel-item${i === 0 ? ' active' : ''}`} key={img}>
-                  <img height="500px" src={img} className="d-block w-100 img-carousel" alt={producto.nombre} />
+                  <img src={img} className="d-block w-100 img-carousel" alt={producto.nombre} />
                 </div>
               ))}
             </div>
           </div>
         </div>
-        <div className="col">
+        <div className="col-md-6">
           <div className="text-success descripcion">
             <hr className="border border-dark border-2 opacity-50 Linea" />
             <p className="DescripcionProducto">{producto.descripcion}</p>
@@ -118,27 +120,35 @@ export default function VistaProducto() {
         </div>
       </div>
 
-      <hr className="border border-dark border-3 opacity-75 Linea" />
-      <div className="Otros">
+      <hr className="border border-dark border-3 opacity-75 Linea my-5" />
+
+      <div className="Otros mb-3">
         <h3>Otros Productos</h3>
       </div>
-      <div className="row">
-        <div className="cartasOtros">
-          {otros.map((op) => (
-            <div className="col-2" key={op.id}>
-              <div className="card" style={{ width: '200px' }}>
-                <img height="150px" src={op.cardImage} className="card-img-top" alt={op.nombre} />
-                <div className="card-body">
-                  <h5 className="card-title">{op.nombre}</h5>
-                  <Link to={`/producto/${op.slug}`} className="btn btn-relieve">Ver Producto</Link>
-                </div>
+
+      {/* Estructura Grid Limpia para Otros Productos */}
+      <div className="row g-3">
+        {otros.map((op) => (
+          <div className="col-6 col-sm-4 col-md-3 col-lg-2" key={op.id}>
+            <div className="card h-100 border-0 shadow-sm p-2 text-center">
+              <img
+                src={op.cardImage}
+                className="card-img-top rounded-3"
+                alt={op.nombre}
+                style={{ height: '120px', objectFit: 'cover', width: '100%' }}
+              />
+              <div className="card-body p-2 d-flex flex-column justify-content-between">
+                <h6 className="card-title fw-bold my-2" style={{ fontSize: '0.9rem' }}>{op.nombre}</h6>
+                <Link to={`/producto/${op.slug}`} className="btn btn-relieve btn-sm w-100 mt-auto">
+                  Ver Producto
+                </Link>
               </div>
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
       </div>
 
       <ReviewsSection productId={producto.id} />
-    </>
+    </div>
   )
 }
