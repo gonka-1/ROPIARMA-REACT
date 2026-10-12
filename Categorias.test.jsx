@@ -1,16 +1,16 @@
 import { render, screen } from '@testing-library/react'
-import { BrowserRouter, Link } from 'react-router-dom'
+import { MemoryRouter, Link } from 'react-router-dom'
 import { test, expect } from 'vitest'
 
 test('El botón "Ver producto" apunta al ID correcto del producto', () => {
   const idProducto = 101
 
   render(
-    <BrowserRouter>
+    <MemoryRouter>
       <Link to={`/producto/${idProducto}`} className="btn">
         Ver producto
       </Link>
-    </BrowserRouter>
+    </MemoryRouter>
   )
 
   const enlace = screen.getByRole('link', { name: /Ver producto/i })

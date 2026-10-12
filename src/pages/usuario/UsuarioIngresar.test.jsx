@@ -1,15 +1,15 @@
 import { render, screen } from '@testing-library/react'
-import { BrowserRouter } from 'react-router-dom'
 import { test, expect } from 'vitest'
 import UsuarioIngresar from './UsuarioIngresar'
 import { SessionProvider } from '../../context/SessionContext'
+import { MemoryRouter } from "react-router-dom";
 
 test('Muestra el encabezado principal de Ingresar', () => {
   render(
     <SessionProvider>
-      <BrowserRouter>
+      <MemoryRouter>
         <UsuarioIngresar />
-      </BrowserRouter>
+      </MemoryRouter>
     </SessionProvider>
   )
 
