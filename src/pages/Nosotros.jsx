@@ -2,13 +2,19 @@ import { useEffect, useRef, useState } from 'react'
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
-import icon from 'leaflet/dist/images/marker-icon.png'
-import iconShadow from 'leaflet/dist/images/marker-shadow.png'
 import { sedes } from '../data/sedes'
 import '../styles/style-nosotros.css'
 
-delete L.Icon.Default.prototype._getIconUrl
-L.Icon.Default.mergeOptions({ iconUrl: icon, shadowUrl: iconShadow })
+// 1. Configuramos el icono de manera explícita con URLs directas que no fallen en producción
+const iconoPersonalizado = new L.Icon({
+  iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
+  iconRetinaUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png',
+  shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
+  iconSize: [25, 41], // Tamaño estándar de un pin de Leaflet
+  iconAnchor: [12, 41], // Punto del icono que se anclará a la coordenada
+  popupAnchor: [1, -34], // Punto desde donde se abrirá el popup
+  shadowSize: [41, 41] // Tamaño de la sombra
+})
 
 function VoladorMapa({ indiceActivo }) {
   const map = useMap()
@@ -72,6 +78,8 @@ export default function Nosotros() {
                   key={sede.nombre}
                   position={[sede.lat, sede.lng]}
                   ref={(el) => { marcadoresRef.current[i] = el }}
+                  // 2. Le pasamos el icono configurado al marcador
+                  icon={iconoPersonalizado} 
                 >
                   <Popup>
                     <div style={{ textAlign: 'center' }}>
