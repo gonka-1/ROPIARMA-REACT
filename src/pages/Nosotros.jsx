@@ -10,10 +10,10 @@ const iconoPersonalizado = new L.Icon({
   iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
   iconRetinaUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png',
   shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
-  iconSize: [25, 41], // Tamaño estándar de un pin de Leaflet
-  iconAnchor: [12, 41], // Punto del icono que se anclará a la coordenada
-  popupAnchor: [1, -34], // Punto desde donde se abrirá el popup
-  shadowSize: [41, 41] // Tamaño de la sombra
+  iconSize: [25, 41], 
+  iconAnchor: [12, 41], 
+  popupAnchor: [1, -34], 
+  shadowSize: [41, 41] 
 })
 
 function VoladorMapa({ indiceActivo }) {
